@@ -3,11 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Strandväder.se</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weather-icons.css">
+    <link rel="stylesheet" href="css/weather-icons-wind.css">
 </head>
 <body>
-    <h1 id="stad">Hello World</h1>
-    <h2 Id="temp"></h2>
+    <div class="wrapper">
+
+        <main class="main">
+
+            <header class="header">
+                <h1 class="header__heading">Är det strandväder idag?</h1>
+                <input type="text" class="header__searchbar" placeholder="Sök stad...">
+                <button class="header__searchbtn">
+                    <ion-icon name="search"></ion-icon>
+                </button>
+            </header>
+
+            <article class="error"></article>
+
+            <section class="weather">
+                <article class="weather__current-wrapper">
+
+                </article>
+                <article class="weather__forecast-wrapper">
+
+                </article>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__text">Grattis på födelsedagen mamma! 💛</p>
+
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a href="https://github.com/MatildaMared" target="_blank" class="footer__link">Github</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="https://www.matildamared.com" target="_blank" class="footer__link">Portfolio</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="https://www.linkedin.com/in/matilda-mared" target="_blank" class="footer__link">LinkedIn</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <p class="footer__copyright">&copy; Matilda Mared 2021</p>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
