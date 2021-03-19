@@ -33,22 +33,28 @@ const renderForecast = function (weatherArray) {
 		// Current date
 		let date = day[0].dt_txt.split(" ")[0];
 
-		// Checks if current date is equal to today or tomorrow, and update variable accordingly
+		// Checks if current date is equal to today or tomorrow, and update variable dateString accordingly
+		let dateString;
 		if (date === arr[0][0].dt_txt.split(" ")[0]) {
-			date = "Idag";
+			dateString = "Idag";
 			dayElement.classList.add("active");
 		} else if (date === arr[1][0].dt_txt.split(" ")[0]) {
-			date = "Imorgon";
+			dateString = "Imorgon";
+		} else {
+			dateString = generateDateString(date);
 		}
+
 		dayElement.classList.add("forecast-day");
 		dayElement.innerHTML = `
-        <h1 class="forecast-day__heading">${date}</h1>
+        <h1 class="forecast-day__heading">${dateString}</h1>
         `;
+
 		day.forEach((forecastTime) => {
 			// Forecast time
-			const time = forecastTime.dt_txt.split(" ")[1].substring(0, 2);
+            const time = forecastTime.dt_txt.split(" ")[1].substring(0, 2);
+            const timeOfDay = time < 6 || time > 20 ? "night" : "day";
 
-			// Generating HTML code
+			// Generating hourly forecast HTML
 			const forecastHTML = `
             <div class="forecast">
                 <div class="forecast__time">
@@ -56,7 +62,7 @@ const renderForecast = function (weatherArray) {
                     <p>${time}:00</p>
                 </div>
                 <div class="forecast__description">
-                    <i class="wi wi-owm-${+forecastTime.weather[0].id}"></i>
+                    <i class="wi wi-owm-${timeOfDay}-${+forecastTime.weather[0].id}"></i>
                     <p>${forecastTime.weather[0].description}</p>
                 </div>
                 <div class="forecast__temperature">
@@ -78,6 +84,21 @@ const renderForecast = function (weatherArray) {
 
 	forecastDayElements = document.querySelectorAll(".forecast-day");
 	addExpandFunctionality(forecastDayElements);
+};
+
+// Generates a swedish date based on the date
+const generateDateString = function (date) {
+    const months = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"];
+    const day = Number(date.slice(-2))
+    const month = Number(date.substring(5, 7));
+    const dateString = `${day} ${months[month - 1]}`;
+    return dateString;
+};
+
+const generateBeachMessage = function (weather) {
+    if (main.temp > 18) {
+
+    }
 };
 
 const renderCurrent = function (currentWeather) {
@@ -118,38 +139,38 @@ const renderCurrent = function (currentWeather) {
 
 const fetchWeatherData = function (city) {
 	// Fetching data from API
-	fetch(
-		`http://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
-	)
-		// Waiting for response, then convert to JSON
+    fetch(
+        `http://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
+    )
+        // Waiting for response, then convert it to JSON
         .then((response) => {
-            console.log(response);
             if (!response.ok) throw new Error(`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`);
             return response.json();
-		})
+        })
 
-		// Waiting for response, then handling data
+        // Waiting for response, then handling data
         .then((data) => {
-            
-            console.log(data);
 
-			// Generating array sorted by date
-			const weatherArray = sortWeatherArray(data);
+            // Generating array of forecasts sorted by date
+            const weatherArray = sortWeatherArray(data);
 
-			// Calling the renderForecast function to render data in DOM
-			renderForecast(weatherArray);
+            // Rendering forecast data
+            renderForecast(weatherArray);
 
-			const currentWeather = data.list[0];
+            // Array with current weather data
+            const currentWeather = data.list[0];
 
+            // Rendering current weather data
             renderCurrent(currentWeather);
         })
         
+        // Catching error and render it on page for user
         .catch(error => {
-            console.log(error);
             renderError(error);
-        })
+        });
 };
 
+// Shows an error message to the user
 const renderError = function (error) {
     const errorHTML = `
     <h3 class="errormessage">${error}</h3>
@@ -158,6 +179,7 @@ const renderError = function (error) {
     errorElement.insertAdjacentHTML("beforeend", errorHTML);
 }
 
+// Adds expand functionality on forecast day elements when user clicks
 const addExpandFunctionality = function (elements) {
 	elements.forEach((day) => {
 		day.addEventListener("click", () => {
@@ -171,12 +193,14 @@ const addExpandFunctionality = function (elements) {
 	});
 };
 
+// Removes the class "active" for all forecast elements
 const removeActiveClasses = function () {
 	forecastDayElements.forEach((day) => {
 		day.classList.remove("active");
 	});
 };
 
+// Resets the DOM content
 const resetContent = function () {
     forecastElement.innerHTML = "";
     currentWeatherElement.innerHTML = "";
