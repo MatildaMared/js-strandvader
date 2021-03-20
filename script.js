@@ -151,7 +151,7 @@ const renderCurrent = function (currentWeather) {
 const fetchWeatherData = function (city) {
 	// Fetching data from API
     fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
     )
         // Waiting for response, then convert it to JSON
         .then((response) => {
