@@ -95,7 +95,7 @@ const generateDateString = function (date) {
     return dateString;
 };
 
-// ### FORTSÄTT JOBBA HÄR ###
+// Generates a message string based on current weather
 const generateBeachMessage = function (weather) {
     let message = "";
     let temp = weather.main.temp;
@@ -104,7 +104,7 @@ const generateBeachMessage = function (weather) {
 
     if (temp > 20 && windSpeed <= 5 && description === "klar himmel") {
         message = "WOW! 🤩 Vilket strandväder, det kan knappast bli bättre än så här! Hämta brassestolarna och solkrämen genast, beachen väntar ju! 😎☀️";
-    } else if (temp > 18 && windSpeed <= 7 && description === "klar himmel" || description === "lätt molnighet" || description === "växlande molnighet") {
+    } else if (temp > 18 && windSpeed <= 7 && (description === "klar himmel" || description === "lätt molnighet" || description === "växlande molnighet")) {
         message = "Det ser ut att bli en riktigt fin dag! ☀️ Dags att packa strandväskan kanske? Ta med dig en bra bok eller tidning och glöm för guds skull inte vattnet, det är viktigt med vätska i värmen! 💦😄";
     } else {
         message = "Det verkar tyvärr inte som att det blir något strandväder idag... 😞 Men häng inte läpp för det, det finns mängder av andra roliga saker att hitta på! Sen går det förstås bra att åka till stranden oavsett väder, men hoppa i plurret på egen risk! 🥶";
