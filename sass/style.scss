@@ -282,6 +282,10 @@ i {
 			background-color: var(--color-background-tertiary);
 			cursor: pointer;
 
+			&:last-of-type {
+				margin: 0rem 2rem 0rem 2rem;
+			}
+
 			&:hover {
 				background-color: rgba(0, 0, 0, 0.02);
 

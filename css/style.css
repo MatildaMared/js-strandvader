@@ -358,6 +358,10 @@ i {
   cursor: pointer;
 }
 
+.weather__forecast-wrapper .forecast-day:last-of-type {
+  margin: 0rem 2rem 0rem 2rem;
+}
+
 .weather__forecast-wrapper .forecast-day:hover {
   background-color: rgba(0, 0, 0, 0.02);
 }
