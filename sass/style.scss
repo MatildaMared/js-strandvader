@@ -68,7 +68,8 @@ i {
 	}
 }
 
-/* Header styles */
+/* HEADER STYLES */
+
 .header {
 	display: flex;
 	width: 100%;
@@ -105,6 +106,8 @@ i {
 			margin-right: 1rem;
 		}
 	}
+
+	/* SEARCH ELEMENT */
 
 	&__search {
 		display: flex;
@@ -187,6 +190,8 @@ i {
 		}
 	}
 
+	/* CURRENT WEATHER ELEMENT STYLES */
+
 	&__current-wrapper {
 		width: 50%;
 
@@ -263,6 +268,8 @@ i {
 		}
 	}
 
+	/* WEATHER FORECAST ELEMENT STYLES */
+
 	&__forecast-wrapper {
 		width: 50%;
 		margin: 2rem 0;
@@ -296,13 +303,14 @@ i {
 
 			&.active {
 				max-height: 1500px;
-				transition: max-height 1.5s;
+				transition: max-height 2.2s;
 				transform-origin: top;
 				cursor: default;
 				background-color: var(--color-background-tertiary);
 
 				& .forecast {
 					opacity: 1;
+					transition: all 1s ease-in;
 				}
 
 				& .forecast-day__heading {
@@ -310,8 +318,8 @@ i {
 					font-size: 2.5rem;
 					text-transform: none;
 					letter-spacing: 0;
-					transition: all 0.5s;
 					margin: 1rem 0.2rem;
+					transition: all 0.5s;
 				}
 			}
 
@@ -330,7 +338,6 @@ i {
 			justify-content: space-between;
 			border-top: 1px solid var(--color-primary-lightest);
 			opacity: 0;
-			transition: all 1s ease-in;
 
 			&:first-of-type {
 				border: none;
@@ -405,7 +412,7 @@ i {
 	}
 }
 
-/* Footer styles */
+/* FOOTER STYLES */
 
 .footer {
 	margin-bottom: 2rem;
@@ -454,7 +461,8 @@ i {
 	}
 }
 
-/* Error message */
+/* ERROR MESSAGE */
+
 .error {
 	.errormessage {
 		margin: 3rem;

@@ -75,7 +75,7 @@ i {
   }
 }
 
-/* Header styles */
+/* HEADER STYLES */
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -95,6 +95,7 @@ i {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  /* SEARCH ELEMENT */
 }
 
 @media screen and (max-width: 620px) {
@@ -229,6 +230,8 @@ i {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+  /* CURRENT WEATHER ELEMENT STYLES */
+  /* WEATHER FORECAST ELEMENT STYLES */
 }
 
 @media screen and (max-width: 900px) {
@@ -372,8 +375,8 @@ i {
 
 .weather__forecast-wrapper .forecast-day.active {
   max-height: 1500px;
-  -webkit-transition: max-height 1.5s;
-  transition: max-height 1.5s;
+  -webkit-transition: max-height 2.2s;
+  transition: max-height 2.2s;
   -webkit-transform-origin: top;
           transform-origin: top;
   cursor: default;
@@ -382,6 +385,8 @@ i {
 
 .weather__forecast-wrapper .forecast-day.active .forecast {
   opacity: 1;
+  -webkit-transition: all 1s ease-in;
+  transition: all 1s ease-in;
 }
 
 .weather__forecast-wrapper .forecast-day.active .forecast-day__heading {
@@ -389,9 +394,9 @@ i {
   font-size: 2.5rem;
   text-transform: none;
   letter-spacing: 0;
+  margin: 1rem 0.2rem;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  margin: 1rem 0.2rem;
 }
 
 .weather__forecast-wrapper .forecast-day__heading {
@@ -414,8 +419,6 @@ i {
           justify-content: space-between;
   border-top: 1px solid var(--color-primary-lightest);
   opacity: 0;
-  -webkit-transition: all 1s ease-in;
-  transition: all 1s ease-in;
 }
 
 .weather__forecast-wrapper .forecast:first-of-type {
@@ -515,7 +518,7 @@ i {
   margin-left: 0.5rem;
 }
 
-/* Footer styles */
+/* FOOTER STYLES */
 .footer {
   margin-bottom: 2rem;
 }
@@ -567,7 +570,7 @@ i {
   color: var(--color-background-primary);
 }
 
-/* Error message */
+/* ERROR MESSAGE */
 .error .errormessage {
   margin: 3rem;
   text-align: center;
