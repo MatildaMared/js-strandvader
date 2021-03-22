@@ -1,10 +1,13 @@
+// DOM elements
 let forecastDayElements = "";
-let city = "Tylösand";
 const forecastElement = document.querySelector(".weather__forecast-wrapper");
 const currentWeatherElement = document.querySelector(".weather__current-wrapper");
 const searchbar = document.querySelector(".header__searchbar");
 const searchBtn = document.querySelector(".header__searchbtn");
 const errorElement = document.querySelector(".error");
+
+// Current city to display forecast
+let city = "Tylösand";
 
 // Sorting data based on date and returning a new array
 const sortWeatherArray = function (data) {
@@ -26,6 +29,7 @@ const sortWeatherArray = function (data) {
 	return weatherArray;
 };
 
+// Create and display the forecast
 const renderForecast = function (weatherArray) {
 	weatherArray.forEach((day, i, arr) => {
 		const dayElement = document.createElement("div");
@@ -112,6 +116,7 @@ const generateBeachMessage = function (weather) {
     return message;
 };
 
+// Create and display the current weather´+opl,
 const renderCurrent = function (currentWeather) {
     const message = generateBeachMessage(currentWeather);
 
@@ -162,16 +167,16 @@ const fetchWeatherData = function (city) {
         // Waiting for response, then handling data
         .then((data) => {
 
-            // Generating array of forecasts sorted by date
+            // Create array of forecasts sorted by date
             const weatherArray = sortWeatherArray(data);
 
-            // Rendering forecast data
+            // Display forecast data
             renderForecast(weatherArray);
 
-            // Array with current weather data
+            // Create array of current weather data
             const currentWeather = data.list[0];
 
-            // Rendering current weather data
+            // Display current weather data
             renderCurrent(currentWeather);
         })
         
@@ -221,11 +226,12 @@ const resetContent = function () {
 // Handling search made by user
 const handleSearch = function (input) {
     if (input) {
-        city = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+        city = input.trim();
+        city = city.charAt(0).toUpperCase().trim() + city.slice(1).toLowerCase();
 		searchbar.value = "";
 		resetContent();
 		fetchWeatherData(city);
-    };
+    }
 };
 
 // Add event listener for search button
