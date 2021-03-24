@@ -1,17 +1,18 @@
 // DOM elements
-let forecastDayElements = "";
 const forecastElement = document.querySelector(".weather__forecast-wrapper");
 const currentWeatherElement = document.querySelector(".weather__current-wrapper");
+let forecastDayElements = "";
 const searchbar = document.querySelector(".header__searchbar");
 const searchBtn = document.querySelector(".header__searchbtn");
 const errorElement = document.querySelector(".error");
 
-// Current city to display forecast
+// Initial city used to display forecast
 let city = "Tylösand";
 
 // Sorting data based on date and returning a new array
 const sortWeatherArray = function (data) {
-	let weatherArray = [[], [], [], [], [], []];
+	const weatherArray = [[], [], [], [], [], []];
+	console.log(weatherArray);
 	let compareDate = data.list[0].dt_txt.split(" ")[0];
 	let currentIndex = 0;
 
@@ -55,12 +56,12 @@ const renderForecast = function (weatherArray) {
 
 		day.forEach((forecastTime) => {
 			// Forecast time
-            const time = forecastTime.dt_txt.split(" ")[1].substring(0, 2);
-            const timeOfDay = time < 6 || time > 20 ? "night" : "day";
+			const time = forecastTime.dt_txt.split(" ")[1].substring(0, 2);
+			const timeOfDay = time < 6 || time > 20 ? "night" : "day";
 
 			// Generating hourly forecast HTML
 			const forecastHTML = `
-            <div class="forecast">
+            <section class="forecast">
                 <div class="forecast__time">
                     <i class="wi wi-time-${time}"></i>
                     <p>${time}:00</p>
@@ -77,7 +78,7 @@ const renderForecast = function (weatherArray) {
                     <i class="wi wi-wind towards-${+forecastTime.wind.deg}-deg"></i>
                     <p>${Math.round(+forecastTime.wind.speed)} m/s</p>
                 </div>
-            </div>
+            </section>
             `;
 
 			dayElement.insertAdjacentHTML("beforeend", forecastHTML);
@@ -92,48 +93,66 @@ const renderForecast = function (weatherArray) {
 
 // Generates a swedish date based on the date
 const generateDateString = function (date) {
-    const months = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"];
-    const day = Number(date.slice(-2))
-    const month = Number(date.substring(5, 7));
-    const dateString = `${day} ${months[month - 1]}`;
-    return dateString;
+	const months = [
+		"januari",
+		"februari",
+		"mars",
+		"april",
+		"maj",
+		"juni",
+		"juli",
+		"augusti",
+		"september",
+		"oktober",
+		"november",
+		"december",
+	];
+	const day = Number(date.slice(-2));
+	const month = Number(date.substring(5, 7));
+	const dateString = `${day} ${months[month - 1]}`;
+	return dateString;
 };
 
 // Generates a message string based on current weather
 const generateBeachMessage = function (weather) {
-    let message = "";
-    let temp = weather.main.temp;
-    let windSpeed = weather.wind.speed;
-    let description = weather.weather[0].description;
+	let message = "";
+	const temp = weather.main.temp;
+	const windSpeed = weather.wind.speed;
+	const description = weather.weather[0].description;
 
-    if (temp > 20 && windSpeed <= 5 && description === "klar himmel") {
-        message = "WOW! 🤩 Vilket strandväder, det kan knappast bli bättre än så här! Hämta brassestolarna och solkrämen genast, beachen väntar ju! 😎☀️";
-    } else if (temp > 18 && windSpeed <= 7 && (description === "klar himmel" || description === "lätt molnighet" || description === "växlande molnighet")) {
-        message = "Det ser ut att bli en riktigt fin dag! ☀️ Dags att packa strandväskan kanske? Ta med dig en bra bok eller tidning och glöm för guds skull inte vattnet, det är viktigt med vätska i värmen! 💦😄";
-    } else {
-        message = "Det verkar tyvärr inte som att det blir något strandväder idag... 😞 Men häng inte läpp för det, det finns mängder av andra roliga saker att hitta på! Sen går det förstås bra att åka till stranden oavsett väder, men hoppa i plurret på egen risk! 🥶";
-    }
-    return message;
+	if (temp > 20 && windSpeed <= 5 && description === "klar himmel") {
+		message =
+			"WOW! 🤩 Vilket strandväder, det kan knappast bli bättre än så här! Hämta brassestolarna och solkrämen genast, beachen väntar ju! 😎☀️";
+	} else if (
+		temp > 18 &&
+		windSpeed <= 7 &&
+		(description === "klar himmel" ||
+			description === "lätt molnighet" ||
+			description === "växlande molnighet")
+	) {
+		message =
+			"Det ser ut att bli en riktigt fin dag! ☀️ Dags att packa strandväskan kanske? Ta med dig en bra bok eller tidning och glöm för guds skull inte vattnet, det är viktigt med vätska i värmen! 💦😄";
+	} else {
+		message =
+			"Det verkar tyvärr inte som att det blir något strandväder idag... 😞 Men häng inte läpp för det, det finns mängder av andra roliga saker att hitta på! Sen går det förstås bra att åka till stranden oavsett väder, men hoppa i plurret på egen risk! 🥶";
+	}
+	return message;
 };
 
-// Create and display the current weather´+opl,
+// Create elements and display the current weather
 const renderCurrent = function (currentWeather) {
-    const message = generateBeachMessage(currentWeather);
+	const message = generateBeachMessage(currentWeather);
 
 	// Generating HTML code
 	const currentHTML = `
-        <div class="current">
-
+        <section class="current">
             <h1 class="current__heading">${city}</h1>
-
             <div class="current__description">
                 <i class="current__icon-large wi wi-owm-${+currentWeather.weather[0].id}"></i>
                 <p>${currentWeather.weather[0].description}</p>
             </div>
-
             <p class="current__message">${message}</p>
-
-            <div class="current__stats">
+            <article class="current__stats">
                 <div class="current__temperature">
                     <i class="current__icon wi wi-thermometer"></i>
                     <p>${Math.round(+currentWeather.main.temp)}°</p>
@@ -146,8 +165,8 @@ const renderCurrent = function (currentWeather) {
                     <i class="current__icon wi wi-humidity"></i>
                     <p>${+currentWeather.main.humidity} %</p>
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
         `;
 
 	currentWeatherElement.insertAdjacentHTML("beforeend", currentHTML);
@@ -155,47 +174,46 @@ const renderCurrent = function (currentWeather) {
 
 const fetchWeatherData = function (city) {
 	// Fetching data from API
-    fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
-    )
-        // Waiting for response, then convert it to JSON
-        .then((response) => {
-            if (!response.ok) throw new Error(`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`);
-            return response.json();
-        })
+	fetch(
+		`https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
+	)
+		.then((response) => {
+			if (!response.ok)
+				throw new Error(
+					`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`
+				);
+			return response.json();
+		})
+		.then((data) => {
+			// Create array of forecasts sorted by date
+			const weatherArray = sortWeatherArray(data);
 
-        // Waiting for response, then handling data
-        .then((data) => {
+			// Display forecast data
+			renderForecast(weatherArray);
 
-            // Create array of forecasts sorted by date
-            const weatherArray = sortWeatherArray(data);
+			// Create array of current weather data
+			const currentWeather = data.list[0];
 
-            // Display forecast data
-            renderForecast(weatherArray);
+			// Display current weather data
+			renderCurrent(currentWeather);
+		})
 
-            // Create array of current weather data
-            const currentWeather = data.list[0];
-
-            // Display current weather data
-            renderCurrent(currentWeather);
-        })
-        
-        // Catching error and render it on page for user
-        .catch(error => {
-            renderError(error);
-        });
+		// Catching error and render it on page for user
+		.catch((error) => {
+			renderError(error);
+		});
 };
 
-// Shows an error message to the user
+// Displays error message on webpage
 const renderError = function (error) {
-    const errorHTML = `
+	const errorHTML = `
     <h3 class="errormessage">${error}</h3>
-    `
-    resetContent();
-    errorElement.insertAdjacentHTML("beforeend", errorHTML);
-}
+    `;
+	resetContent();
+	errorElement.insertAdjacentHTML("beforeend", errorHTML);
+};
 
-// Adds expand functionality on forecast day elements when user clicks
+// Adds expand functionality on forecast day elements when user clicks on date
 const addExpandFunctionality = function (elements) {
 	elements.forEach((day) => {
 		day.addEventListener("click", () => {
@@ -209,7 +227,7 @@ const addExpandFunctionality = function (elements) {
 	});
 };
 
-// Removes the class "active" for all forecast elements
+// Removes class "active" for all forecast elements
 const removeActiveClasses = function () {
 	forecastDayElements.forEach((day) => {
 		day.classList.remove("active");
@@ -218,33 +236,33 @@ const removeActiveClasses = function () {
 
 // Resets the DOM content
 const resetContent = function () {
-    forecastElement.innerHTML = "";
-    currentWeatherElement.innerHTML = "";
-    errorElement.innerHTML = "";
+	forecastElement.innerHTML = "";
+	currentWeatherElement.innerHTML = "";
+	errorElement.innerHTML = "";
 };
 
 // Handling search made by user
 const handleSearch = function (input) {
-    if (input) {
-        city = input.trim();
-        city = city.charAt(0).toUpperCase().trim() + city.slice(1).toLowerCase();
+	if (input) {
+		city = input.trim();
+		city = city.charAt(0).toUpperCase().trim() + city.slice(1).toLowerCase();
 		searchbar.value = "";
 		resetContent();
 		fetchWeatherData(city);
-    }
+	}
 };
 
 // Add event listener for search button
 searchBtn.addEventListener("click", () => {
-    handleSearch(searchbar.value);
+	handleSearch(searchbar.value);
 });
 
 // Add event listener for enter key
 searchbar.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-        handleSearch(searchbar.value);
-        searchbar.blur();
-    }
+	if (e.key === "Enter") {
+		handleSearch(searchbar.value);
+		searchbar.blur();
+	}
 });
 
 fetchWeatherData(city);

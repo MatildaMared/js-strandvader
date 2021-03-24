@@ -10,7 +10,6 @@
   --color-primary-light: #b1b1b1;
   --color-primary-lightest: #d7d7d7;
   --color-secondary: #5bc9c5;
-  --color-secondary-dark: #688c92;
   --font-primary: "Lato", sans-serif;
   --font-secondary: "Caveat", cursive;
 }
@@ -212,6 +211,7 @@ i {
 @media screen and (max-width: 400px) {
   .main {
     border-radius: 0;
+    margin: 0 0 2rem 0;
   }
 }
 
@@ -297,7 +297,7 @@ i {
 }
 
 .weather__current-wrapper .current__description p {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   text-align: center;
   margin: 2rem 0;
   text-transform: uppercase;
@@ -582,7 +582,6 @@ i {
 }
 
 /* CLOUDS */
-/* Clouds */
 #clouds {
   position: absolute;
   top: 1rem;

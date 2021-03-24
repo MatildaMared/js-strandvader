@@ -12,7 +12,6 @@
 	--color-primary-light: #b1b1b1;
 	--color-primary-lightest: #d7d7d7;
 	--color-secondary: #5bc9c5;
-	--color-secondary-dark: #688c92;
 
 	--font-primary: "Lato", sans-serif;
 	--font-secondary: "Caveat", cursive;
@@ -170,6 +169,7 @@ i {
 	@media screen and(max-width: 400px) {
 		& {
 			border-radius: 0;
+			margin: 0 0 2rem 0;
 		}
 	}
 
@@ -235,7 +235,7 @@ i {
 			}
 
 			&__description p {
-				font-size: 1.4rem;
+				font-size: 1.6rem;
 				text-align: center;
 				margin: 2rem 0;
 				text-transform: uppercase;
@@ -477,7 +477,6 @@ i {
 
 /* CLOUDS */
 
-/* Clouds */
 #clouds {
 	position: absolute;
 	top: 1rem;
@@ -512,9 +511,6 @@ i {
 	background: #a9f3f1;
 	position: absolute;
 	top: 13rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -526,9 +522,6 @@ i {
 	height: 8rem;
 	top: -4rem;
 	left: 2rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -540,9 +533,6 @@ i {
 	height: 10rem;
 	top: -6rem;
 	right: 3rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -553,9 +543,6 @@ i {
 	position: absolute;
 	top: 4.5rem;
 	left: 40rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -567,9 +554,6 @@ i {
 	height: 4rem;
 	top: -2rem;
 	left: 1rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -581,9 +565,6 @@ i {
 	height: 5rem;
 	top: -3rem;
 	right: 1.5rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -594,9 +575,6 @@ i {
 	position: absolute;
 	top: -4rem;
 	left: 74rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -608,9 +586,6 @@ i {
 	height: 8rem;
 	top: -4rem;
 	left: 2rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
@@ -622,9 +597,6 @@ i {
 	height: 10rem;
 	top: -6rem;
 	right: 3rem;
-
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
 	border-radius: 20rem;
 }
 
