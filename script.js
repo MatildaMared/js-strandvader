@@ -62,22 +62,22 @@ const renderForecast = function (weatherArray) {
 			// Generating hourly forecast HTML
 			const forecastHTML = `
             <section class="forecast">
-                <div class="forecast__time">
+                <article class="forecast__time">
                     <i class="wi wi-time-${time}"></i>
                     <p>${time}:00</p>
-                </div>
-                <div class="forecast__description">
+                </article>
+                <article class="forecast__description">
                     <i class="wi wi-owm-${timeOfDay}-${+forecastTime.weather[0].id}"></i>
                     <p>${forecastTime.weather[0].description}</p>
-                </div>
-                <div class="forecast__temperature">
+                </article>
+                <article class="forecast__temperature">
                     <i class="wi wi-thermometer"></i>
                     <p>${Math.round(+forecastTime.main.temp)}°</p>
-                </div>
-                <div class="forecast__wind">
+                </article>
+                <article class="forecast__wind">
                     <i class="wi wi-wind towards-${+forecastTime.wind.deg}-deg"></i>
                     <p>${Math.round(+forecastTime.wind.speed)} m/s</p>
-                </div>
+                </article>
             </section>
             `;
 
@@ -147,24 +147,24 @@ const renderCurrent = function (currentWeather) {
 	const currentHTML = `
         <section class="current">
             <h1 class="current__heading">${city}</h1>
-            <div class="current__description">
+            <article class="current__description">
                 <i class="current__icon-large wi wi-owm-${+currentWeather.weather[0].id}"></i>
                 <p>${currentWeather.weather[0].description}</p>
-            </div>
+            </article>
             <p class="current__message">${message}</p>
             <article class="current__stats">
-                <div class="current__temperature">
+                <article class="current__temperature">
                     <i class="current__icon wi wi-thermometer"></i>
                     <p>${Math.round(+currentWeather.main.temp)}°</p>
-                </div>
-                <div class="current__wind">
+                </article>
+                <article class="current__wind">
                     <i class="current__icon wi wi-wind towards-${+currentWeather.wind.deg}-deg"></i>
                     <p>${Math.round(+currentWeather.wind.speed)} m/s</p>
-                </div>
-                <div class="current__humidity">
+                </article>
+                <article class="current__humidity">
                     <i class="current__icon wi wi-humidity"></i>
                     <p>${+currentWeather.main.humidity} %</p>
-                </div>
+                </article>
             </article>
         </section>
         `;
@@ -172,36 +172,63 @@ const renderCurrent = function (currentWeather) {
 	currentWeatherElement.insertAdjacentHTML("beforeend", currentHTML);
 };
 
-const fetchWeatherData = function (city) {
-	// Fetching data from API
-	fetch(
-		`https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
-	)
-		.then((response) => {
-			if (!response.ok)
-				throw new Error(
-					`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`
-				);
-			return response.json();
-		})
-		.then((data) => {
-			// Create array of forecasts sorted by date
-			const weatherArray = sortWeatherArray(data);
+// const fetchWeatherData = function (city) {
+// 	// Fetching data from API
+// 	fetch(
+// 		`https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
+// 	)
+// 		.then((response) => {
+// 			if (!response.ok)
+// 				throw new Error(
+// 					`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`
+// 				);
+// 			return response.json();
+// 		})
+// 		.then((data) => {
+// 			// Create array of forecasts sorted by date
+// 			const weatherArray = sortWeatherArray(data);
 
-			// Display forecast data
-			renderForecast(weatherArray);
+// 			// Display forecast data
+// 			renderForecast(weatherArray);
 
-			// Create array of current weather data
-			const currentWeather = data.list[0];
+// 			// Create array of current weather data
+// 			const currentWeather = data.list[0];
 
-			// Display current weather data
-			renderCurrent(currentWeather);
-		})
+// 			// Display current weather data
+// 			renderCurrent(currentWeather);
+// 		})
 
+// 		// Catching error and render it on page for user
+// 		.catch((error) => {
+// 			renderError(error);
+// 		});
+// };
+
+const fetchWeatherData = async function (city) {
+	try {
+		// Fetching data from API
+		const response = await fetch(
+			`https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
+		);
+		if (!response.ok) {
+			throw new Error(`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`);
+		}
+		const data = await response.json();
+		// Create array of forecasts sorted by date
+		const weatherArray = sortWeatherArray(data);
+
+		// Display forecast data
+		renderForecast(weatherArray);
+
+		// Create array of current weather data
+		const currentWeather = data.list[0];
+
+		// Display current weather data
+		renderCurrent(currentWeather);
+	} catch (error) {
 		// Catching error and render it on page for user
-		.catch((error) => {
-			renderError(error);
-		});
+		renderError(error);
+	}
 };
 
 // Displays error message on webpage
