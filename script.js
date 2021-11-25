@@ -172,38 +172,6 @@ const renderCurrent = function (currentWeather) {
 	currentWeatherElement.insertAdjacentHTML("beforeend", currentHTML);
 };
 
-// const fetchWeatherData = function (city) {
-// 	// Fetching data from API
-// 	fetch(
-// 		`https://api.openweathermap.org/data/2.5/forecast?q=${city},SE&appid=d281633f352b5e2ecf2b04cd6db53196&lang=sv&units=metric`
-// 	)
-// 		.then((response) => {
-// 			if (!response.ok)
-// 				throw new Error(
-// 					`(${response.status}) Oops. Något gick visst fel... 😞 Testa att söka igen!`
-// 				);
-// 			return response.json();
-// 		})
-// 		.then((data) => {
-// 			// Create array of forecasts sorted by date
-// 			const weatherArray = sortWeatherArray(data);
-
-// 			// Display forecast data
-// 			renderForecast(weatherArray);
-
-// 			// Create array of current weather data
-// 			const currentWeather = data.list[0];
-
-// 			// Display current weather data
-// 			renderCurrent(currentWeather);
-// 		})
-
-// 		// Catching error and render it on page for user
-// 		.catch((error) => {
-// 			renderError(error);
-// 		});
-// };
-
 const fetchWeatherData = async function (city) {
 	try {
 		// Fetching data from API
