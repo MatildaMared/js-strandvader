@@ -19,18 +19,12 @@ if it's "beach weather" or not.</p>
 
 ---
 
-## About the app 📝
-
-About strandväder
-
----
-
 ## Technologies used 💻
 
 - HTML
 - CSS
 - JavaScript
-– SCSS
+- SCSS
 
 ---
 
