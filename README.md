@@ -1,4 +1,4 @@
-<h1 align="center">Instablam</h1>
+<h1 align="center">Strandväder</h1>
 
 <p align="center">"Strandväder" is a weather app that, apart from the weather forecast, also displays a funny message telling the user
 if it's "beach weather" or not.</p>
